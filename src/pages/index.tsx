@@ -1,11 +1,32 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "@next/font/google";
+import styles from "@/styles/Home.module.css";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { IncomingHttpHeaders } from "http";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export interface Props {
+  host: IncomingHttpHeaders["host"];
+}
+export const getServerSideProps: GetServerSideProps<Props> = async ({
+  params,
+  res,
+  req,
+}) => {
+  const { host } = req.headers;
+
+  return {
+    props: { host },
+  };
+};
+
+export default function Home({
+  host,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  console.log({ host });
+
   return (
     <>
       <Head>
@@ -26,7 +47,7 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              By{' '}
+              By{" "}
               <Image
                 src="/vercel.svg"
                 alt="Vercel Logo"
@@ -119,5 +140,5 @@ export default function Home() {
         </div>
       </main>
     </>
-  )
+  );
 }
