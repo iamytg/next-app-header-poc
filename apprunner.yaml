@@ -1,0 +1,12 @@
+version: 1.0
+runtime: nodejs16
+build:
+  commands:
+    pre-build:
+      - pnpm install
+    build:
+      - pnpm build
+run:
+  command: pnpm start
+  network:
+    port: 3000
