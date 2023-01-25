@@ -3,10 +3,10 @@ runtime: nodejs16
 build:
   commands:
     pre-build:
-      - pnpm install
+      - yarn install
     build:
-      - pnpm build
+      - yarn build
 run:
-  command: pnpm start
+  command: yarn start
   network:
     port: 3000
